@@ -1,7 +1,7 @@
 from sqlmodel import Session, select
 from hotel.database.models import Room
-from hotel.operations.utils.get_session import with_session
-from hotel.operations.utils.get_or_404 import get_or_404
+from hotel.database.utils.get_session import with_session
+from hotel.database.utils.get_or_404 import get_or_404
 
 
 @with_session

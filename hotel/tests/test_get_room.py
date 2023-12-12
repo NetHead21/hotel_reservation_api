@@ -1,9 +1,9 @@
 import pytest
-from sqlmodel import Session, create_engine
+from sqlmodel import create_engine
 from sqlalchemy.orm import sessionmaker
 from hotel.database.models import Room
 from hotel.operations.rooms import get_room
-from hotel.operations.utils.get_or_404 import NotFoundError
+from hotel.database.utils.get_or_404 import NotFoundError
 
 # Setup a test database and session
 TEST_DATABASE_URL = "sqlite:///./test.db"

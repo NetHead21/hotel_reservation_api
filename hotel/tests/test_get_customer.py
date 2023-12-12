@@ -3,7 +3,7 @@ from sqlmodel import Session, create_engine
 from sqlmodel.pool import StaticPool
 from hotel.database.models import Customer
 from hotel.operations.customers import get_customer
-from hotel.operations.utils.get_or_404 import ItemNotFound
+from hotel.database.utils.get_or_404 import ItemNotFound
 
 
 # Setup a test database and session fixture

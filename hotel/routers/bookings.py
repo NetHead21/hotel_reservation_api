@@ -1,5 +1,8 @@
 from typing import List
 from fastapi import APIRouter
+
+from hotel.database.database_interface import DatabaseInterface, DataObject
+from hotel.database.models import Booking, Room
 from hotel.operations.bookings import (
     get_booking,
     get_bookings,
@@ -13,26 +16,24 @@ router = APIRouter()
 
 @router.get("/bookings", response_model=List[BookingResult])
 def api_get_bookings():
-    return get_bookings()
+    booking_interface = DatabaseInterface(Booking)
+    return get_bookings(booking_interface)
 
 
 @router.get("/bookings/{booking_id}", response_model=BookingResult | str)
-def api_get_booking(booking_id: int):
-    return get_booking(booking_id)
+def api_get_booking(booking_id: int) -> DataObject | str:
+    booking_interface = DatabaseInterface(Booking)
+    return get_booking(booking_id, booking_interface)
 
 
 @router.post("/bookings", response_model=BookingResult, status_code=201)
-def api_create_booking(booking: BookingCreateData) -> BookingResult:
-    return create_booking(booking)
-
-
-# @router.put("/bookings/{booking_id}", response_model=BookingResult | str)
-# def api_update_booking(
-#     booking_id: int, booking: BookingCreateData
-# ) -> BookingResult | str:
-#     return update_booking(booking_id, booking)
+def api_create_booking(booking: BookingCreateData) -> DataObject:
+    booking_interface = DatabaseInterface(Booking)
+    room_interface = DatabaseInterface(Room)
+    return create_booking(booking, booking_interface, room_interface)
 
 
 @router.delete("/bookings/{booking_id}", response_model=dict)
-def api_delete_booking(booking_id: int) -> dict:
-    return delete_booking(booking_id)
+def api_delete_booking(booking_id: int) -> DataObject | str:
+    booking_interface = DatabaseInterface(Booking)
+    return delete_booking(booking_id, booking_interface)
