@@ -1,17 +1,8 @@
-from sqlmodel import Session, select
-
-
-from hotel.database.models import Customer
 from hotel.operations.interface import DataInterface, DataObject
 from hotel.operations.models import (
     CustomerCreateData,
-    CustomerResult,
     CustomerUpdateData,
 )
-from hotel.database.utils.delete_message import get_delete_message
-from hotel.database.utils.get_or_404 import get_or_404
-from hotel.database.utils.get_session import with_session
-from hotel.database.utils.to_dict import to_dict
 
 
 def get_customers(customer_interface: DataInterface) -> list[DataObject]:

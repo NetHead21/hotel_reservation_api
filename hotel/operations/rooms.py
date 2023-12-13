@@ -1,15 +1,9 @@
-from sqlmodel import Session, select
-from hotel.database.models import Room
-from hotel.database.utils.get_session import with_session
-from hotel.database.utils.get_or_404 import get_or_404
+from hotel.operations.interface import DataInterface, DataObject
 
 
-@with_session
-def get_rooms(session: Session):
-    statement = select(Room)
-    return session.exec(statement).all()
+def get_rooms(room_interface: DataInterface) -> list[DataObject]:
+    return room_interface.read_all()
 
 
-@with_session
-def get_room(session: Session, room_id: int):
-    return get_or_404(session, Room, room_id)
+def get_room(room_id: int, room_interface: DataInterface):
+    return room_interface.read_by_id(room_id)
